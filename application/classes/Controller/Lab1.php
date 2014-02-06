@@ -56,7 +56,7 @@ class Controller_Lab1 extends Controller_Template {
 
 	public function action_addUserToken() {
 
-		$code = $this->request->param("code");
+		$code = $this->request->query("code");
 		//$code = "ID0LS5VSS4GFBQVWP1KLX5P4DXA2KD3M0M1QS2HGY5UMHJZN";
 
 		if (isset($code)) {
@@ -78,7 +78,7 @@ class Controller_Lab1 extends Controller_Template {
 			curl_close($ch);
 
 			$data = json_decode($response);
-			var_dump($data);
+			//var_dump($data);
 			$token = $data->access_token;
 			$this->addToken($token);
 		}
