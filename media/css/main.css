@@ -1,0 +1,18 @@
+body {
+	background-color: #2d2d2d;
+	color: #ccffff;
+}
+
+.navbar-inverse {
+	background-color: #2d2d2d;
+	box-shadow: 3px 3px 3px black;
+
+}
+.nav>li>a:hover {
+	background-color: #2d2d2d;
+	color: #ccffff;
+}
+
+.page_content {
+	padding-top: 40px;
+}
