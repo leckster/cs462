@@ -86,8 +86,24 @@ class Controller_Lab1 extends Controller_Template {
 		}
 
 		$activeUser = $this->session->get('username');
+		
+		$user = $this->getUser($activeUser);
+		$data = '';
+		if ($user->token != "") {
+			$url = "https://api.foursquare.com/v2/users/self/checkins?oauth_token=" . $user->token . "&v=20131016";
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			$response = curl_exec($ch);
+			curl_close($ch);
+
+			$data = json_decode($response);
+			//var_dump($data);die;
+		}
+		
 		$this->template->content = View::factory("lab1/user-details-self");
 		$this->template->content->set('user', $this->getUser($activeUser));
+		$this->template->content->set('userdata', $this->getUser($data));
 	}
 
 	public function action_create() {
