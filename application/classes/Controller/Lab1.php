@@ -11,13 +11,25 @@ class Controller_Lab1 extends Controller_Template {
 		
 		$this->session = Session::instance();
 	}
+	protected function getUser($username) {
+		$users = json_decode(file_get_contents("users.json"));
+		foreach ($users as $index => $user){
+			if($user->name == $username) {
+				return $user;
+			}
+		}
+	}
 	protected function getUsers() {
-		return json_decode(file_get_contents("users.json"));
+		$users = json_decode(file_get_contents("users.json"));
+		return $users;
 	}
 
 	protected function addUserName($username) {
 		$users = $this->getUsers();
-		array_push($users, strtolower($username));
+		$user = new stdClass();
+		$user->name = strtolower($username);
+		$user->token = "";
+		array_push($users, $user);
 		file_put_contents("users.json", json_encode($users));
 	}
 
@@ -25,6 +37,10 @@ class Controller_Lab1 extends Controller_Template {
 
 		$this->template->content = View::factory("lab1/current-users");
 		$this->template->content->set("users", $this->getUsers());
+	}
+	
+	public function action_addUserToken() {
+		var_dump($this->request);
 	}
 
 	public function action_create() {
@@ -40,8 +56,8 @@ class Controller_Lab1 extends Controller_Template {
 		
 		
 		//if it is not unique, reload the create view with error message
-		foreach ($users as $name) {
-			if ($name == $username) {
+		foreach ($users as $index => $user) {
+			if ($user->name == $username) {
 				$this->template->content = View::factory("lab1/create-user");
 				$this->template->content->set("error", "Username already exists");
 				return;
@@ -63,6 +79,7 @@ class Controller_Lab1 extends Controller_Template {
 		
 		if($username == $activeUser) {
 			$this->template->content = View::factory("lab1/user-details-self");
+			$this->template->content->set('user', $this->getUser($username)); 
 			return;
 		}
 		
@@ -87,8 +104,8 @@ class Controller_Lab1 extends Controller_Template {
 		$validUserName = false;
 
 		$users = $this->getUsers();
-		foreach ($users as $user) {
-			if ($user == $username) {
+		foreach ($users as $index => $user) {
+			if ($user->name == $username) {
 				$validUserName = true;
 			}
 		}
