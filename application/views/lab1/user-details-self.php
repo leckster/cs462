@@ -7,7 +7,7 @@ if ($user->token == "") {
 	$checkins = $userdata->response->checkins;
 	echo "<div><h3>Most Recent Checkin</h3><p>";
 	if ($checkins->count > 0) {
-		for ($i = 0; $i < $checkins->count || $i < 10; $i++) {
+		for ($i = 0; $i < $checkins->count && $i < 10; $i++) {
 			$mostRecentCheckin = $checkins->items[$i];
 			echo date('m/d/Y', $mostRecentCheckin->createdAt);
 			echo "</p><p> At: ";
