@@ -4,7 +4,7 @@
 if($user->token == "") {
 	echo "<div><p>This user has not enabled Foursquare.</p></div>";
 }else {
-	echo $userdata;
+	var_dump($userdata);
 }
 ?>
 

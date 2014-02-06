@@ -127,7 +127,7 @@ class Controller_Lab1 extends Controller_Template {
 		$user = $this->getUser($username);
 		$data = '';
 		if ($user->token != "") {
-			$url = "https://api.foursquare.com/v2/users/self/checkins?oauth_token=" . $user->token;
+			$url = "https://api.foursquare.com/v2/users/self/checkins?oauth_token=" . $user->token . "&v=20131016";
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
