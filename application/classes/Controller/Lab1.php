@@ -34,17 +34,17 @@ class Controller_Lab1 extends Controller_Template {
 		array_push($users, $user);
 		file_put_contents("users.json", json_encode($users));
 	}
-	
+
 	protected function addToken($token) {
-		
+
 		$activeUser = $this->session->get('username');
 		$users = $this->getUsers();
 		foreach ($users as $index => $user) {
-			if($user->name == $activeUser){
+			if ($user->name == $activeUser) {
 				$user->token = $token;
 			}
 		}
-		
+
 		file_put_contents("users.json", json_encode($users));
 	}
 
@@ -57,7 +57,7 @@ class Controller_Lab1 extends Controller_Template {
 	public function action_addUserToken() {
 
 		$code = $this->request->param("code");
-		$code = "ID0LS5VSS4GFBQVWP1KLX5P4DXA2KD3M0M1QS2HGY5UMHJZN";
+		//$code = "ID0LS5VSS4GFBQVWP1KLX5P4DXA2KD3M0M1QS2HGY5UMHJZN";
 
 		if (isset($code)) {
 			//make request to https://foursquare.com/oauth2/access_token?client_id=AKEEBQXVGYNERMINA3NV3HMXMG33AJYG5ELXHWSUENELR2CI&client_secret=WGXJU2WCTIF5BYKHYTFMJRI1B3LX4OPXOHR033VMQGIR0YIA&grant_type=authorization_code&redirect_uri=https://54.245.233.32/cs462/index.php/lab1/addUserToken&code=ID0LS5VSS4GFBQVWP1KLX5P4DXA2KD3M0M1QS2HGY5UMHJZN
@@ -80,12 +80,12 @@ class Controller_Lab1 extends Controller_Template {
 			$data = json_decode($response);
 			var_dump($data);
 			$token = $data->access_token;
-			
-		} else {
-			
+			$this->addToken($token);
 		}
-		//RESPONSE WILL BE TOKEN for logged in user.
-		//Store token 
+
+		$activeUser = $this->session->get('username');
+		$this->template->content = View::factory("lab1/user-details-self");
+		$this->template->content->set('user', $this->getUser($activeUser));
 	}
 
 	public function action_create() {
