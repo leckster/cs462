@@ -16,6 +16,7 @@ if ($user->token == "") {
 				echo "</p><p> Twitter: @";
 				echo $mostRecentCheckin->venue->contact->twitter;
 			}
+			echo "</p><p>";
 		}
 	} else {
 		echo "There are no checkins for this person.";
