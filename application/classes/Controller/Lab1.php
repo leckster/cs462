@@ -3,22 +3,24 @@
 defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Lab1 extends Controller_Template {
-	
+
 	private $session;
-	
+
 	public function before() {
 		parent::before();
-		
+
 		$this->session = Session::instance();
 	}
+
 	protected function getUser($username) {
 		$users = json_decode(file_get_contents("users.json"));
-		foreach ($users as $index => $user){
-			if($user->name == $username) {
+		foreach ($users as $index => $user) {
+			if ($user->name == $username) {
 				return $user;
 			}
 		}
 	}
+
 	protected function getUsers() {
 		$users = json_decode(file_get_contents("users.json"));
 		return $users;
@@ -32,15 +34,58 @@ class Controller_Lab1 extends Controller_Template {
 		array_push($users, $user);
 		file_put_contents("users.json", json_encode($users));
 	}
+	
+	protected function addToken($token) {
+		
+		$activeUser = $this->session->get('username');
+		$users = $this->getUsers();
+		foreach ($users as $index => $user) {
+			if($user->name == $activeUser){
+				$user->token = $token;
+			}
+		}
+		
+		file_put_contents("users.json", json_encode($users));
+	}
 
 	public function action_index() {
 
 		$this->template->content = View::factory("lab1/current-users");
 		$this->template->content->set("users", $this->getUsers());
 	}
-	
+
 	public function action_addUserToken() {
-		var_dump($this->request);
+
+		$code = $this->request->param("code");
+		$code = "ID0LS5VSS4GFBQVWP1KLX5P4DXA2KD3M0M1QS2HGY5UMHJZN";
+
+		if (isset($code)) {
+			//make request to https://foursquare.com/oauth2/access_token?client_id=AKEEBQXVGYNERMINA3NV3HMXMG33AJYG5ELXHWSUENELR2CI&client_secret=WGXJU2WCTIF5BYKHYTFMJRI1B3LX4OPXOHR033VMQGIR0YIA&grant_type=authorization_code&redirect_uri=https://54.245.233.32/cs462/index.php/lab1/addUserToken&code=ID0LS5VSS4GFBQVWP1KLX5P4DXA2KD3M0M1QS2HGY5UMHJZN
+			$url = "https://foursquare.com/oauth2/access_token?client_id=AKEEBQXVGYNERMINA3NV3HMXMG33AJYG5ELXHWSUENELR2CI&client_secret=WGXJU2WCTIF5BYKHYTFMJRI1B3LX4OPXOHR033VMQGIR0YIA&grant_type=authorization_code&redirect_uri=https://54.245.233.32/cs462/index.php/lab1/addUserToken&code=$code";
+			// create curl resource 
+			$ch = curl_init();
+
+			// set url 
+			curl_setopt($ch, CURLOPT_URL, $url);
+
+			//return the transfer as a string 
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+			// $output contains the output string 
+			$response = curl_exec($ch);
+
+			// close curl resource to free up system resources 
+			curl_close($ch);
+
+			$data = json_decode($response);
+			var_dump($data);
+			$token = $data->access_token;
+			
+		} else {
+			
+		}
+		//RESPONSE WILL BE TOKEN for logged in user.
+		//Store token 
 	}
 
 	public function action_create() {
@@ -51,10 +96,10 @@ class Controller_Lab1 extends Controller_Template {
 		$post = $this->request->post();
 		$username = strtolower($post['username']);
 		//check if form username is unique
-		
+
 		$users = $this->getUsers();
-		
-		
+
+
 		//if it is not unique, reload the create view with error message
 		foreach ($users as $index => $user) {
 			if ($user->name == $username) {
@@ -76,23 +121,25 @@ class Controller_Lab1 extends Controller_Template {
 		$username = $this->request->param('username');
 
 		$activeUser = $this->session->get('username');
-		
-		if($username == $activeUser) {
+
+		if ($username == $activeUser) {
 			$this->template->content = View::factory("lab1/user-details-self");
-			$this->template->content->set('user', $this->getUser($username)); 
+			$this->template->content->set('user', $this->getUser($username));
 			return;
 		}
-		
+
 		//check if current logged in user is selected user.
 
 		$this->template->content = View::factory("lab1/user-details-other");
 	}
+
 	public function action_logout() {
-		
+
 		$this->session->delete("username");
 		$this->template->content = View::factory("lab1/current-users");
 		$this->template->content->set("users", $this->getUsers());
 	}
+
 	public function action_login() {
 
 		$this->template->content = View::factory("lab1/login");
@@ -118,8 +165,8 @@ class Controller_Lab1 extends Controller_Template {
 		}
 
 		$this->session->set("username", $username);
-		
-		
+
+
 		$this->template->content = View::factory("lab1/current-users");
 		$this->template->content->set("users", $this->getUsers());
 	}
