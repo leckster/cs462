@@ -103,7 +103,7 @@ class Controller_Lab1 extends Controller_Template {
 		
 		$this->template->content = View::factory("lab1/user-details-self");
 		$this->template->content->set('user', $this->getUser($activeUser));
-		$this->template->content->set('userdata', $this->getUser($data));
+		$this->template->content->set('userdata', $data);
 	}
 
 	public function action_create() {
