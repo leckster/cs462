@@ -61,7 +61,8 @@ class Controller_Lab1 extends Controller_Template {
 
 		if (isset($code)) {
 			//make request to https://foursquare.com/oauth2/access_token?client_id=AKEEBQXVGYNERMINA3NV3HMXMG33AJYG5ELXHWSUENELR2CI&client_secret=WGXJU2WCTIF5BYKHYTFMJRI1B3LX4OPXOHR033VMQGIR0YIA&grant_type=authorization_code&redirect_uri=https://54.245.233.32/cs462/index.php/lab1/addUserToken&code=ID0LS5VSS4GFBQVWP1KLX5P4DXA2KD3M0M1QS2HGY5UMHJZN
-			$url = "https://foursquare.com/oauth2/access_token?client_id=AKEEBQXVGYNERMINA3NV3HMXMG33AJYG5ELXHWSUENELR2CI&client_secret=WGXJU2WCTIF5BYKHYTFMJRI1B3LX4OPXOHR033VMQGIR0YIA&grant_type=authorization_code&redirect_uri=https://54.245.233.32/cs462/index.php/lab1/addUserToken&code=$code";
+			$url = "https://foursquare.com/oauth2/access_token?client_id=AKEEBQXVGYNERMINA3NV3HMXMG33AJYG5ELXHWSUENELR2CI&client_secret=WGXJU2WCTIF5BYKHYTFMJRI1B3LX4OPXOHR033VMQGIR0YIA&grant_type=authorization_code&redirect_uri=https://54.245.233.32/cs462/index.php/lab1/addUserToken&code=" . $code;
+			var_dump($url);die;
 			// create curl resource 
 			$ch = curl_init();
 
@@ -78,7 +79,7 @@ class Controller_Lab1 extends Controller_Template {
 			curl_close($ch);
 
 			$data = json_decode($response);
-			//var_dump($data);
+			//var_dump($data);die;
 			$token = $data->access_token;
 			$this->addToken($token);
 		}
