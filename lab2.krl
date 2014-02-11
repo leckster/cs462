@@ -10,7 +10,7 @@ ruleset Lab2 {
 	rule rule3 {
 		select when pageview ".*" {
 			emit <<
-					console.log(query)
+					console.log(page:url("query"))
 					>>;
 			notify("Welcome Monkey: " + page:url("query")) with sticky = true;
 			
