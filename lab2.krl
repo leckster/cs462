@@ -11,7 +11,9 @@ ruleset Lab2 {
 			query = page:url("query");
 		}
 		if (not query.isnull()) then {
-			notify("Welcome Monkey", "Query: " + query) with sticky = true;
+			name = query.extract(re#(\?|\&){1}name=([a-zA-Z]+)&?#);
+			
+			notify("Welcome ", "Welcome: " + name) with sticky = true;
 		}
 		fired {
 			last
@@ -19,6 +21,6 @@ ruleset Lab2 {
 	}
 	rule rule3 {
 		select when pageview ".*"
-		notify ("Hello", "Hello Monkey") with sticky = true;
+		notify ("Welcome", "Welcome Monkey") with sticky = true;
 	}
 }
