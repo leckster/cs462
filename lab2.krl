@@ -8,11 +8,12 @@ ruleset Lab2 {
 		}
 	}
 	rule rule3 {
-		select when pageview ".*" {
-			emit <<
-					console.log(page:url("query"))
-					>>;
-			notify("Welcome Monkey: " + page:url("query")) with sticky = true;
+		select when pageview ".*" 
+		pre {
+			query = page:url("query")
+		} always {
+			
+			notify("Welcome Monkey: " + query) with sticky = true;
 			
 		}
 	}
