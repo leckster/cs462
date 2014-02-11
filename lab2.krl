@@ -15,7 +15,7 @@ ruleset Lab2 {
 		if (true) then {
 			notify("Welcome Monkey: ", query) with sticky = true;
 		}
-		else {
+		if (true) then {
 			notify("False", "false") with sticky = true;
 		}
 		
