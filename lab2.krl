@@ -9,9 +9,9 @@ ruleset Lab2 {
 		select when pageview ".*"
 		pre {
 			query = page:url("query");
-		}
-		if (not query.isnull()) then {
 			name = query.extract(re#(?:^|&)name=(\w+)#);
+		}
+		if (not name.isnull()) then {
 			notify("Welcome ", "Welcome: " + name) with sticky = true;
 		}
 		fired {
