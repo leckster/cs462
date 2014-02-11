@@ -12,7 +12,7 @@ ruleset Lab2 {
   global {
   }
   rule lab2 {
-    select when pageview url re#ktest.heroku.com#
+    select when pageview ".*"
     pre {
       my_html = <<
 		
