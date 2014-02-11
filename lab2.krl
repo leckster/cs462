@@ -7,12 +7,12 @@ ruleset Lab2 {
 			notify("Second Notification box", "Good afternoon!") with sticky = true;
 		}
 	}
-	rule rule3 {
+	rule rule2 {
 		select when pageview ".*"
 		pre {
-			query = page:url("query")
+			query = page:url("query");
 		} 
-		if (true) then {
+		fired {
 			notify("Welcome Monkey: " + query) with sticky = true;
 		}
 	}
