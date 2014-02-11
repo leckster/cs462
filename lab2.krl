@@ -11,7 +11,7 @@ ruleset Lab2 {
 			query = page:url("query");
 			name = query.extract(re#(?:^|&)name=(\w+)#);
 		}
-		if (not name.isnull()) then {
+		if (not name[0].isnull()) then {
 			notify("Welcome ", "Welcome: " + name[0]) with sticky = true;
 		}
 		fired {
