@@ -12,8 +12,12 @@ ruleset Lab2 {
 		pre {
 			query = page:url("query");
 		} 
-		fired {
-			notify("Welcome Monkey: " + query) with sticky = true;
+		if (true) then {
+			notify("Welcome Monkey: ", query) with sticky = true;
 		}
+		else {
+			notify("False", "false") with sticky = true;
+		}
+		
 	}
 }
