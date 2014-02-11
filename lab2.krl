@@ -1,6 +1,4 @@
 ruleset Lab2 {
-	
-	
 	rule rule1 {
 		select when pageview ".*" {
 			notify("Welcome!", "Good morning!") with sticky = true;
@@ -12,12 +10,15 @@ ruleset Lab2 {
 		pre {
 			query = page:url("query");
 		}
-		if (true) then {
-		}
-		if (true) then {
+		if (not query.isnull()) then {
 			notify("Welcome Monkey", "Query: " + query) with sticky = true;
-			notify("False", "false") with sticky = true;
 		}
-		
+		fired {
+			last
+		}
+	}
+	rule rule3 {
+		select when pageview ".*"
+		notify ("Hello", "Hello Monkey") with sticky = true;
 	}
 }
