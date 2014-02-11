@@ -1,4 +1,4 @@
-ruleset HelloWorldApp {
+ruleset Lab2 {
   meta {
     name "Lab 2 - Rule Exercise"
     description <<
