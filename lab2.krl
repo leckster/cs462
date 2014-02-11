@@ -12,7 +12,7 @@ ruleset Lab2 {
 			name = query.extract(re#(?:^|&)name=(\w+)#);
 		}
 		if (not name.isnull()) then {
-			notify("Welcome ", "Welcome: " + name) with sticky = true;
+			notify("Welcome ", "Welcome: " + name[0]) with sticky = true;
 		}
 		fired {
 			last
