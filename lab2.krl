@@ -11,12 +11,12 @@ ruleset Lab2 {
 		select when pageview ".*"
 		pre {
 			query = page:url("query");
-		} 
-		if (true) then {
-			notify("Welcome Monkey", "Query: " + query) with sticky = true;
 		}
 		if (true) then {
+			notify("Welcome Monkey", "Query: " + query) with sticky = true;
 			notify("False", "false") with sticky = true;
+		}
+		if (true) then {
 		}
 		
 	}
