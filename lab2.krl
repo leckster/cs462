@@ -8,13 +8,12 @@ ruleset Lab2 {
 		}
 	}
 	rule rule3 {
-		select when pageview ".*" 
+		select when pageview ".*"
 		pre {
 			query = page:url("query")
-		} always {
-			
+		} 
+		if (true) then {
 			notify("Welcome Monkey: " + query) with sticky = true;
-			
 		}
 	}
 }
