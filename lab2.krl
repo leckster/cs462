@@ -24,4 +24,22 @@ ruleset Lab2 {
 		select when explicit zero
 		notify ("Welcome", "Welcome Monkey") with sticky = true;
 	}
+	rule count {
+		select when pageview ".*"
+		pre {
+			count = ent:visitor_count;
+		}
+		if( ent:visitor_count >= 5) then {
+			notify("Count", "The count is: " + count);
+		}
+		fired {
+			ent:visitor_count += 1 from 1;
+		}
+	}
+	rule clear_count {
+		select when pageview ".*"
+		pre{
+			
+		}
+	}
 }
