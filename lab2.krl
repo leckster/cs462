@@ -30,7 +30,7 @@ ruleset Lab2 {
 			count = ent:visitor_count + 1;
 		}
 		if( ent:visitor_count < 5) then {
-			notify("Count", "The count is: " + count);
+			notify("Count", "The count is: " + count) with sticky = true;
 		}
 		fired {
 			ent:visitor_count += 1 from 1;
