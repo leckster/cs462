@@ -27,9 +27,9 @@ ruleset Lab2 {
 	rule count {
 		select when pageview ".*"
 		pre {
-			count = ent:visitor_count;
+			count = ent:visitor_count + 1;
 		}
-		if( ent:visitor_count <= 5) then {
+		if( ent:visitor_count < 5) then {
 			notify("Count", "The count is: " + count);
 		}
 		fired {
@@ -39,7 +39,14 @@ ruleset Lab2 {
 	rule clear_count {
 		select when pageview ".*"
 		pre{
-			
+			query = page:url("query");
+			name = query.extract(re#(?:^|&)(clear)=(?:\w+)#);
+		}
+		if (not name[0].isnull()) then {
+			noop();
+		}
+		fired {
+			clear ent:visitor_count;
 		}
 	}
 }
