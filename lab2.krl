@@ -29,7 +29,7 @@ ruleset Lab2 {
 		pre {
 			count = ent:visitor_count;
 		}
-		if( ent:visitor_count >= 5) then {
+		if( ent:visitor_count <= 5) then {
 			notify("Count", "The count is: " + count);
 		}
 		fired {
