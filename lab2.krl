@@ -15,11 +15,13 @@ ruleset Lab2 {
 			notify("Welcome ", "Welcome: " + name[0]) with sticky = true;
 		}
 		fired {
-			last
+			raise explicit event one;
+		} else {
+			raise explicit event zero;
 		}
 	}
 	rule rule3 {
-		select when pageview ".*"
+		select when explicit zero
 		notify ("Welcome", "Welcome Monkey") with sticky = true;
 	}
 }
