@@ -14,8 +14,11 @@ ruleset Lab3 {
 			first_name = ent:first_name;
 			last_name = ent:last_name;
 		}
-		if(ent:fist_name.isnull() || ent:last_name.isnull()) then {
-			notify("Name", "First Name: " + first_name + " Last Name: " + last_name) with sticky = true;
+//		if(ent:fist_name.isnull() || ent:last_name.isnull()) then {
+//			notify("Name", "First Name: " + first_name + " Last Name: " + last_name) with sticky = true;
+//		}
+		if(true) {
+			notify ("HELLO", "HELLO") with sticky = true;
 		}
 		fired {
 			ent:first_name = "Leckie";
@@ -26,9 +29,9 @@ ruleset Lab3 {
 		select when pageview ".*"
 		pre{
 			query = page:url("query");
-			name = query.extract(re#(?:^|&)(clear=1)(?:$|&)#);
+			clear = query.extract(re#(?:^|&)(clear=1)(?:$|&)#);
 		}
-		if (not name[0].isnull()) then {
+		if (not clear[0].isnull()) then {
 			noop();
 		}
 		fired {
