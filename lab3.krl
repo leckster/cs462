@@ -1,13 +1,13 @@
 ruleset Lab3 {
-	rule show_form {
-		select when pageview ".*"
-		pre {
-			html = <<
-				<p>This is my form...</p>
-			>>
-		}
-		replace_inner("#main", html);
-	}
+//	rule show_form {
+//		select when pageview ".*"
+//		pre {
+//			html = <<
+//				<p>This is my form...</p>
+//			>>
+//		}
+//		replace_inner("#main", html);
+//	}
 	rule catch_submit {
 		select when pageview ".*"
 		pre {
