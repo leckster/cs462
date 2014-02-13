@@ -3,8 +3,8 @@ ruleset Lab3 {
 		select when pageview ".*"
 		pre {
 			html = <<
-					<p>This is my form...</p>
-					>>
+				<p>This is my form...</p>
+			>>
 		}
 		replace_inner("#main", html);
 	}
@@ -14,7 +14,7 @@ ruleset Lab3 {
 			first_name = ent:first_name;
 			last_name = ent:last_name;
 		}
-		if(not ent:fist_name.isnull() && not ent:last_name.isnull()) then {
+		if(ent:fist_name.isnull() || ent:last_name.isnull()) then {
 			notify("Name", "First Name: " + first_name + " Last Name: " + last_name) with sticky = true;
 		}
 		fired {
