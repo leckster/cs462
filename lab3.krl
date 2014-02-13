@@ -17,7 +17,7 @@ ruleset Lab3 {
 //		if(ent:fist_name.isnull() || ent:last_name.isnull()) then {
 //			notify("Name", "First Name: " + first_name + " Last Name: " + last_name) with sticky = true;
 //		}
-		if(true) {
+		if(true) then {
 			notify ("HELLO", "HELLO") with sticky = true;
 		}
 		fired {
