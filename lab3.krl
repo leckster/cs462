@@ -10,9 +10,23 @@ ruleset Lab3 {
 					<input type="submit" value="Submit">
 				</form>
 			>>;
+			first_name = ent:first_name || "";
+			last_name = ent:last_name || "";
+			
+			name_html = <<
+				<p>#{first_name} #{last_name}</p>
+			>>;
 		}
-		{
+		
+		if(not first_name eq "" && not last_name eq "") then {
 			replace_inner("#main", html);
+		}
+		fired {
+			
+		}else {
+			replace_inner("#main", html + name_html);
+		}
+		always {
 			watch("#my_form", "submit");
 		}
 	}
@@ -20,8 +34,8 @@ ruleset Lab3 {
 	rule catch_submit {
 		select when web submit "#my_form"
 		pre {
-			first_name = event:attr("first_name");
-			last_name = event:attr("last_name");
+			ent:first_name = event:attr("first_name");
+			ent:last_name = event:attr("last_name");
 		}
 		{
 			notify("Button Clicked", "HI " + first_name + " " + last_name) with sticky = true;
