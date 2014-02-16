@@ -13,15 +13,11 @@ ruleset Lab3 {
 			first_name = ent:first_name || "";
 			last_name = ent:last_name || "";
 			
-			name_html = <<
-				<p>#{first_name} #{last_name}</p>
-			>>;
 		}
 		
 		if(not first_name eq "" && not last_name eq "") then {
 			replace_inner("#main", html);
-		}
-		always {
+			append("#main", "<p>#{first_name} #{last_name}</p>");
 			watch("#my_form", "submit");
 		}
 	}
