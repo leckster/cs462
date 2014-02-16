@@ -78,7 +78,7 @@ ruleset Lab3 {
 			clear_param = query.extract(re#(?:^|&)(clear=1)(?:$|&)#);
 		}
 		if (not clear_param[0].isnull()) then {
-			noop();
+			alert("Cleared", "Just cleared the first and last name");
 		}
 		fired {
 			clear ent:first_name;
