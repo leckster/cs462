@@ -4,11 +4,9 @@ ruleset Lab3 {
 		pre {
 			html = <<
 				<p>This is my form</p>
-				<form method="post">
-					First Name<input type="text" name="first_name"><br>
-					Last Name<input type="text" name="last_name"><br>
-					<input id="submit_button" type="submit" value="Submit">
-				</form>
+				First Name<input id="first_name" type="text" name="first_name"><br>
+				Last Name<input id="last_name" type="text" name="last_name"><br>
+				<input id="submit_button" type="submit" value="Submit">
 			>>;
 		}
 		{
