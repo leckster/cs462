@@ -16,8 +16,26 @@ ruleset Lab3 {
 		}
 		
 		if(not first_name eq "" && not last_name eq "") then {
+			noop();
+		}
+		fired {
+			raise explicit event zero;
+		} else {
+			raise explicit event one;
+		}
+	}
+	rule event_zero {
+		select when explicit zero
+		{
 			replace_inner("#main", html);
 			append("#main", "<p>#{first_name} #{last_name}</p>");
+			watch("#my_form", "submit");
+		}
+	}
+	rule event_one {
+		select when explicit one
+		{
+			replace_inner("#main", html);
 			watch("#my_form", "submit");
 		}
 	}
