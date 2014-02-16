@@ -2,17 +2,8 @@ ruleset Lab3 {
 	rule show_form {
 		select when pageview ".*"
 		pre {
-			html = <<
-				<p>This is my form</p>
-				<form id="my_form" onsubmit="return false">
-					First Name<input type="text" name="first_name"><br>
-					Last Name<input type="text" name="last_name"><br>
-					<input type="submit" value="Submit">
-				</form>
-			>>;
 			first_name = ent:first_name || "";
 			last_name = ent:last_name || "";
-			
 		}
 		
 		if(not first_name eq "" && not last_name eq "") then {
@@ -26,6 +17,19 @@ ruleset Lab3 {
 	}
 	rule event_zero {
 		select when explicit zero
+		pre {
+			html = <<
+				<p>This is my form</p>
+				<form id="my_form" onsubmit="return false">
+					First Name<input type="text" name="first_name"><br>
+					Last Name<input type="text" name="last_name"><br>
+					<input type="submit" value="Submit">
+				</form>
+			>>;
+			first_name = ent:first_name || "";
+			last_name = ent:last_name || "";
+			
+		}
 		{
 			replace_inner("#main", html);
 			append("#main", "<p>#{first_name} #{last_name}</p>");
@@ -34,6 +38,19 @@ ruleset Lab3 {
 	}
 	rule event_one {
 		select when explicit one
+		pre {
+			html = <<
+				<p>This is my form</p>
+				<form id="my_form" onsubmit="return false">
+					First Name<input type="text" name="first_name"><br>
+					Last Name<input type="text" name="last_name"><br>
+					<input type="submit" value="Submit">
+				</form>
+			>>;
+			first_name = ent:first_name || "";
+			last_name = ent:last_name || "";
+			
+		}
 		{
 			replace_inner("#main", html);
 			watch("#my_form", "submit");
