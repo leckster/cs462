@@ -2,30 +2,26 @@ ruleset Lab3 {
 	rule show_form {
 		select when pageview ".*"
 		pre {
-			html = (false) ?  <<
+			html = <<
 				<p>This is my form</p>
 				First Name<input id="first_name" type="text" name="first_name"><br>
 				Last Name<input id="last_name" type="text" name="last_name"><br>
 				<input id="submit_button" type="submit" value="Submit">
-			>>
-			:
-			<<
-				<p>Leckie Gunter</p>;
 			>>;
 		}
 		{
 			replace_inner("#main", html);
 			watch("#submit_button", "click");
-		}	
+		}
 	}
 	
 	rule catch_submit {
 		select when web click "#submit_button"
 		pre {
-			
+			first_name = $("#first_name").val();
 		}
 		{
-			notify("Button Clicked", "HI!") with sticky = true;
+			notify("Button Clicked", "HI!" + first_name) with sticky = true;
 		}
 	}
 //	rule catch_submit {
