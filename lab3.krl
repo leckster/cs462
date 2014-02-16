@@ -4,24 +4,27 @@ ruleset Lab3 {
 		pre {
 			html = <<
 				<p>This is my form</p>
-				First Name<input id="first_name" type="text" name="first_name"><br>
-				Last Name<input id="last_name" type="text" name="last_name"><br>
-				<input id="submit_button" type="submit" value="Submit">
+				<form id="my_form" onsubmit="return false">
+					First Name<input type="text" name="first_name"><br>
+					Last Name<input type="text" name="last_name"><br>
+					<input type="submit" value="Submit">
+				</form>
 			>>;
 		}
 		{
 			replace_inner("#main", html);
-			watch("#submit_button", "click");
+			watch("#my_form", "submit");
 		}
 	}
 	
 	rule catch_submit {
 		select when web click "#submit_button"
 		pre {
-//			first_name = $("#first_name").val();
+			first_name = event:attr("first_name");
+			last_name = event:attr("last_name");
 		}
 		{
-			notify("Button Clicked", "HI!") with sticky = true;
+			notify("Button Clicked", "HI " + first_name + " " + last_name) with sticky = true;
 		}
 	}
 //	rule catch_submit {
