@@ -18,10 +18,10 @@ ruleset Lab3 {
 	rule catch_submit {
 		select when web click "#submit_button"
 		pre {
-			first_name = $("#first_name").val();
+//			first_name = $("#first_name").val();
 		}
 		{
-			notify("Button Clicked", "HI!" + first_name) with sticky = true;
+			notify("Button Clicked", "HI!") with sticky = true;
 		}
 	}
 //	rule catch_submit {
