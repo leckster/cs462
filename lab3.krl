@@ -18,7 +18,7 @@ ruleset Lab3 {
 	}
 	
 	rule catch_submit {
-		select when web click "#submit_button"
+		select when web submit "#my_form"
 		pre {
 			first_name = event:attr("first_name");
 			last_name = event:attr("last_name");
