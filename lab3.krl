@@ -3,10 +3,24 @@ ruleset Lab3 {
 		select when pageview ".*"
 		pre {
 			html = <<
-				<p>This is my form...</p>
+				<p>This is my form</p>
+				<form method="post">
+					First Name<input type="text" name="first_name"><br>
+					Last Name<input type="text" name="last_name"><br>
+					<input id="submit_button" type="submit" value="Submit">
+				</form>
 			>>;
 		}
 		replace_inner("#main", html);
+		watch("#submit_button", "click");
+	}
+	
+	rule catch_submit {
+		select when web click "#submit_button"
+		
+		{
+			notify("Button Clicked", "HI!") with sticky = true;
+		}
 	}
 //	rule catch_submit {
 //		select when pageview ".*"
