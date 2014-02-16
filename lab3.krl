@@ -29,7 +29,7 @@ ruleset Lab3 {
 			ent:last_name = event:attr("last_name");
 		}
 		{
-			notify("Button Clicked", "HI " + first_name + " " + last_name) with sticky = true;
+			notify("Button Clicked", "HI #{first_name} #{last_name}") with sticky = true;
 		}
 	}
 	
