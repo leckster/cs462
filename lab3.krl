@@ -2,11 +2,15 @@ ruleset Lab3 {
 	rule show_form {
 		select when pageview ".*"
 		pre {
-			html = <<
+			html = (false) ?  <<
 				<p>This is my form</p>
 				First Name<input id="first_name" type="text" name="first_name"><br>
 				Last Name<input id="last_name" type="text" name="last_name"><br>
 				<input id="submit_button" type="submit" value="Submit">
+			>>
+			:
+			<<
+				<p>Leckie Gunter</p>;
 			>>;
 		}
 		{
@@ -17,7 +21,9 @@ ruleset Lab3 {
 	
 	rule catch_submit {
 		select when web click "#submit_button"
-		
+		pre {
+			
+		}
 		{
 			notify("Button Clicked", "HI!") with sticky = true;
 		}
