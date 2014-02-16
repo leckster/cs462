@@ -25,11 +25,14 @@ ruleset Lab3 {
 	rule catch_submit {
 		select when web submit "#my_form"
 		pre {
-			ent:first_name = event:attr("first_name");
-			ent:last_name = event:attr("last_name");
+			first_name = event:attr("first_name");
+			last_name = event:attr("last_name");
 		}
+		notify("Button Clicked", "HI #{first_name} #{last_name}") with sticky = true;
+		fired 
 		{
-			notify("Button Clicked", "HI #{first_name} #{last_name}") with sticky = true;
+			set ent:first_name event:attr("first_name");
+			set ent:last_name event:attr("last_name");
 		}
 	}
 	
@@ -37,9 +40,9 @@ ruleset Lab3 {
 		select when pageview ".*"
 		pre{
 			query = page:url("query");
-			clear = query.extract(re#(?:^|&)(clear=1)(?:$|&)#);
+			clear_param = query.extract(re#(?:^|&)(clear=1)(?:$|&)#);
 		}
-		if (not clear[0].isnull()) then {
+		if (not clear_param[0].isnull()) then {
 			noop();
 		}
 		fired {
