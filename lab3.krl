@@ -11,8 +11,10 @@ ruleset Lab3 {
 				</form>
 			>>;
 		}
-		replace_inner("#main", html);
-		watch("#submit_button", "click");
+		{
+			replace_inner("#main", html);
+			watch("#submit_button", "click");
+		}	
 	}
 	
 	rule catch_submit {
