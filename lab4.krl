@@ -45,7 +45,7 @@ ruleset rotten_tomatoes {
 	rule get_movie_data {
 		select when web submit "#my_form"
 		pre {
-			title = get(event:attr("title"));
+			title = event:attr("title");
 		}
 		{
 			replace_inner("#movie_info", getRTMovieData(title));
