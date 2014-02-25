@@ -46,9 +46,10 @@ ruleset rotten_tomatoes {
 		select when web submit "#my_form"
 		pre {
 			title = event:attr("title");
+			dataString = getRTMovieData(title).as("str");
 		}
 		{
-			replace_inner("#movie_info", getRTMovieData(title));
+			replace_inner("#movie_info", dataString);
 			notify("Title", title) with sticky = true;
 		}
 	}
