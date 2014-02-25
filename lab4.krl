@@ -29,7 +29,7 @@ ruleset rotten_tomatoes {
 			my_html = <<
 				<div id="main">
 					<form id="my_form">
-						Title: <input type="text"/><br>
+						Title: <input type="text" name="title"/><br>
 						<input type="submit" value="Submit"/>
 					</form>
 					<div id="movie_info">Search a movie title to see details.</div>
@@ -52,14 +52,4 @@ ruleset rotten_tomatoes {
 			notify("Title", title) with sticky = true;
 		}
 	}
-//	rule obtain_rating {
-//		select when pageview url re#imdb.com/title/#
-//		pre {
-//			r = http:get(datasource:rotten_tomatoes("&q=thor"));
-//			title = page:env("title");
-//		}
-//		if(true) then {
-//			notify("Title",title) with sticky = true;
-//		}
-//	}
 }
