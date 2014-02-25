@@ -16,25 +16,30 @@ ruleset rotten_tomatoes {
 		select when web cloudAppSelected
 		pre {
 			my_html = <<
-			  <h5>Hello, world!</h5>
+				<div id="main">
+					<form id="my_form">
+						Title: <input type="text"/><br>
+						<input type="submit" value="Submit"/>
+					</form>
+					<div id="movie_info">Search a movie title to see details.</div>
+				</div>
 			>>;
 		}
 		{
 			SquareTag:inject_styling();
-			CloudRain:createLoadPanel("Hello World!", {}, my_html);
-			replace_inner("#main", html);
+			CloudRain:createLoadPanel("Use Form to get Rotten Tomato Info", {}, my_html);
 			watch("#my_form", "submit");
 		}
 	}
-//	rule get_movie_data {
-//		select when web submit "#my_form"
-//		pre {
-//			
-//		}
-//		{
-//			
-//		}
-//	}
+	rule get_movie_data {
+		select when web submit "#my_form"
+		pre {
+			
+		}
+		{
+			noop();
+		}
+	}
 //	rule obtain_rating {
 //		select when pageview url re#imdb.com/title/#
 //		pre {
