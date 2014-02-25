@@ -10,7 +10,18 @@ ruleset rotten_tomatoes {
 		use module a41x186  alias SquareTag
 	  }
 	global {
-		datasource rotten_tomatoes <- "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=h63rkg3745b4da82xdxbbkrg";
+		apikey = "h63rkg3745b4da82xdxbbkrg";
+		getRTMovieData = function(title) {
+			data =  http:get("http://api.rottentomatoes.com/api/public/v1.0/movies.json",{
+				"apikey":apikey, 
+				"q":title,
+				"page_limit": 1
+			});
+			content = data.pick("$.content").decode();
+			movies = content.pick("$.movies");
+			movie = movies[0];
+			movie
+		}
 	}
 	rule place_form is active {
 		select when web cloudAppSelected
@@ -34,10 +45,11 @@ ruleset rotten_tomatoes {
 	rule get_movie_data {
 		select when web submit "#my_form"
 		pre {
-			
+			title = get(event:attr("title"));
 		}
 		{
-			notify("Title", "TITLE") with sticky = true;
+			replace_inner("#movie_info", getRTMovieData(title));
+			notify("Title", title) with sticky = true;
 		}
 	}
 //	rule obtain_rating {
