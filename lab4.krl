@@ -37,7 +37,7 @@ ruleset rotten_tomatoes {
 			
 		}
 		{
-			noop();
+			notify("Title", "TITLE") with sticky = true;
 		}
 	}
 //	rule obtain_rating {
