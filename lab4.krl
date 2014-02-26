@@ -29,7 +29,7 @@ ruleset rotten_tomatoes {
 			my_html = <<
 				<div id="main">
 					<form id="my_form">
-						Title: <input type="text" name="title"/><br>
+						Title: <input type="text" name="input_title"/><br>
 						<input type="submit" value="Submit"/>
 					</form>
 					<div id="movie_info">Search a movie title to see details.</div>
@@ -42,15 +42,54 @@ ruleset rotten_tomatoes {
 			watch("#my_form", "submit");
 		}
 	}
+//	Movie thumbnail
+//	Title
+//	Release Year
+//	Synopsis
+//	Critic ratings
+//	and other data you find interesting. 
 	rule get_movie_data {
 		select when web submit "#my_form"
 		pre {
-			title = event:attr("title");
-			dataString = getRTMovieData(title).as("str");
+			input_title = event:attr("input_title");
+			dataString = getRTMovieData(input_title).as("str");
+			
+			title = dataString.pick("$.title");
+			synopsis = dataString.pick("$..synopsis");
+			mpaa_rating = dataString.pick("$..mpaa_rating");
+			release_date = dataString.pick("$..release_dates.theater");
+			thumbnail = dataString.pick("$..posters.thumbnail");
+			
+			ratings = dataString.pick("$..ratings");
+			
+			critic_rating = ratings.pick("$.critics_rating").as("str");
+			critic_score = ratings.pick("$.critics_score").as("str");
+			audience_rating = ratings.pick("$.audience_rating").as("str");
+			audience_score = ratings.pick("$.audience_score").as("str");
+
+
+			movie_html = <<
+					<h2>Movie Data:</h2>
+					<h3>{title}</h3>
+					<p>Release Date:{release_date}</p>	
+					<p>MPAA Rating: {mpaa_rating}</p>
+					<p>
+						<img src=#{thumbnail}></img>
+					</p>
+					<div id="critic_review">
+						<h3>Critics Said:</h3>
+						<p>Critic Rating:{critic_rating}</p>
+						<p>Critic Score:{critic_score}</p>
+					</div>
+					<div id="audience_review">
+						<h3>Audience Said:</h3>
+						<p>Audience Rating:{audience_rating}</p>
+						<p>Audience Score:{audience_score}</p>
+					</div>
+				>>;
 		}
 		{
-			replace_inner("#movie_info", dataString);
-			notify("Title", title) with sticky = true;
+			replace_inner("#movie_info", movie_html);
 		}
 	}
 }
