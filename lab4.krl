@@ -73,19 +73,19 @@ ruleset rotten_tomatoes {
 					<p>
 						<img src=#{thumbnail}></img>
 					</p>
-					<h3>{title}</h3>
-					<p>Release Date:{release_date}</p>	
-					<p>MPAA Rating: {mpaa_rating}</p>
-					<p>{synopsis}</p>
+					<h3>#{title}</h3>
+					<p>Release Date:#{release_date}</p>	
+					<p>MPAA Rating: #{mpaa_rating}</p>
+					<p>#{synopsis}</p>
 					<div id="critic_review">
 						<h3>Critics Said:</h3>
-						<p>Critic Rating:{critic_rating}</p>
-						<p>Critic Score:{critic_score}</p>
+						<p>Critic Rating:#{critic_rating}</p>
+						<p>Critic Score:#{critic_score}</p>
 					</div>
 					<div id="audience_review">
 						<h3>Audience Said:</h3>
-						<p>Audience Rating:{audience_rating}</p>
-						<p>Audience Score:{audience_score}</p>
+						<p>Audience Rating:#{audience_rating}</p>
+						<p>Audience Score:#{audience_score}</p>
 					</div>
 				>>;
 		}
