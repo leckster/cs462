@@ -52,8 +52,8 @@ ruleset rotten_tomatoes {
 		select when web submit "#my_form"
 		pre {
 			input_title = event:attr("input_title");
-			data = getRTMovieData(input_title).as("str");
-			dataString = data.as("str");
+			dataString = getRTMovieData(input_title);
+			//dataString = data.as("str");
 			
 			title = dataString.pick("$.title").as("str");
 			synopsis = dataString.pick("$..synopsis").as("str");
