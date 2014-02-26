@@ -18,6 +18,7 @@ ruleset rotten_tomatoes {
 				"page_limit": 1
 			});
 			content = data.pick("$.content").decode();
+			count = content.pick("$.count");
 			movies = content.pick("$.movies");
 			movie = movies[0];
 			movie
@@ -53,7 +54,8 @@ ruleset rotten_tomatoes {
 		pre {
 			input_title = event:attr("input_title");
 			dataString = getRTMovieData(input_title);
-			//dataString = data.as("str");
+			
+			count = dataString.pick("$.");
 			
 			title = dataString.pick("$.title").as("str");
 			synopsis = dataString.pick("$..synopsis").as("str");
@@ -90,8 +92,27 @@ ruleset rotten_tomatoes {
 					</div>
 				>>;
 		}
-		{
+		if(count > 0) then {
 			replace_inner("#movie_info", movie_html);
+		}
+		fired {
+			raise explicit event zero
+		} else {
+			raise explicit event movie_not_found with title = input_title
+		}
+	}
+	
+	rule add_not_found_html {
+		select when explicit movie_not_found
+		pre {
+			title = event:attr("title");
+			html = <<
+				<h2>Movie Not Found</h2>
+				<p>You searched:#{title}</p>
+			>>
+		}
+		{
+			replace_inner("movie_info", html);
 		}
 	}
 }
