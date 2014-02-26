@@ -70,12 +70,13 @@ ruleset rotten_tomatoes {
 
 			movie_html = <<
 					<h2>Movie Data:</h2>
-					<h3>{title}</h3>
-					<p>Release Date:{release_date}</p>	
-					<p>MPAA Rating: {mpaa_rating}</p>
 					<p>
 						<img src=#{thumbnail}></img>
 					</p>
+					<h3>{title}</h3>
+					<p>Release Date:{release_date}</p>	
+					<p>MPAA Rating: {mpaa_rating}</p>
+					<p>{synopsis}</p>
 					<div id="critic_review">
 						<h3>Critics Said:</h3>
 						<p>Critic Rating:{critic_rating}</p>
