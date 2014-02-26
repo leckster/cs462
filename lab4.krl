@@ -61,7 +61,7 @@ ruleset rotten_tomatoes {
 			release_date = dataString.pick("$..release_dates.theater").as("str");
 			thumbnail = dataString.pick("$..posters.thumbnail").as("str");
 			
-			ratings = dataString.pick("$..ratings").as("str");
+			ratings = dataString.pick("$..ratings");
 			
 			critic_rating = ratings.pick("$.critics_rating").as("str");
 			critic_score = ratings.pick("$.critics_score").as("str");
