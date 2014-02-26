@@ -52,15 +52,16 @@ ruleset rotten_tomatoes {
 		select when web submit "#my_form"
 		pre {
 			input_title = event:attr("input_title");
-			dataString = getRTMovieData(input_title).as("str");
+			data = getRTMovieData(input_title).as("str");
+			dataString = data.as("str");
 			
-			title = dataString.pick("$.title");
-			synopsis = dataString.pick("$..synopsis");
-			mpaa_rating = dataString.pick("$..mpaa_rating");
-			release_date = dataString.pick("$..release_dates.theater");
-			thumbnail = dataString.pick("$..posters.thumbnail");
+			title = dataString.pick("$.title").as("str");
+			synopsis = dataString.pick("$..synopsis").as("str");
+			mpaa_rating = dataString.pick("$..mpaa_rating").as("str");
+			release_date = dataString.pick("$..release_dates.theater").as("str");
+			thumbnail = dataString.pick("$..posters.thumbnail").as("str");
 			
-			ratings = dataString.pick("$..ratings");
+			ratings = dataString.pick("$..ratings").as("str");
 			
 			critic_rating = ratings.pick("$.critics_rating").as("str");
 			critic_score = ratings.pick("$.critics_score").as("str");
