@@ -112,7 +112,7 @@ ruleset rotten_tomatoes {
 			>>
 		}
 		{
-			replace_inner("movie_info", html);
+			replace_inner("#movie_info", html);
 		}
 	}
 }
