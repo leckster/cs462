@@ -5,7 +5,7 @@ ruleset rotten_tomatoes {
 		//domain: foursquare
 		//type: checkin
 		//?_rid=
-		name "Rotten Tomatoes"
+		name "Foursquare Checkin"
 		description <<
 		  Update based on foursquare checkins
 		>>
@@ -17,13 +17,22 @@ ruleset rotten_tomatoes {
 	global {
 		
 	}
-	rule update_checkin_info {
+	rule display_checkin is active {
+		select when web cloudAppSelected
+		pre {
+			checkin = ent:last_checkin;
+		}
+		if(checkin) then {
+			notify("Checkin exists", checkin);
+		}
+	}
+	rule process_fs_checkin {
 		select when foursquare checkin
 		pre {
 			checkin = event:attr("checkin");
 		}
 		if(checkin) then {
-			notify("Checkin exists", checkin);
+			noop();
 		}
 		fired {
 			set ent:last_checkin checkin;
