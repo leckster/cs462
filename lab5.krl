@@ -15,18 +15,18 @@ ruleset rotten_tomatoes {
 		use module a41x186  alias SquareTag
 	  }
 	global {
-	
+		
+	}
 	rule update_checkin_info {
-		select when foursqure checkin
+		select when foursquare checkin
 		pre {
-			title = event:attr("title");
-			html = <<
-				<h2>Movie Not Found</h2>
-				<p>You searched:#{title}</p>
-			>>
+			checkin = event:attr("checkin");
 		}
-		{
-			replace_inner("#movie_info", html);
+		if(checkin) then {
+			notify("Checkin exists", checkin);
+		}
+		fired {
+			set ent:last_checkin checkin;
 		}
 	}
 }
