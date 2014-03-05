@@ -23,7 +23,10 @@ ruleset b505200x4 {
 			checkin = ent:last_checkin;
 			my_html = <<
 				<div id="main">
-					<div id="checkin_info">Have a user login with foursquare to display data.</div>
+					<div id="checkin_info">
+						<p>Have a user login with foursquare to display data.</p>
+						<p>#{checkin}</p>
+					</div>
 				</div>
 			>>;
 		}
@@ -32,7 +35,7 @@ ruleset b505200x4 {
 			CloudRain:createLoadPanel("Latest Checkin Information", {}, my_html);
 		}
 	}
-	rule process_fs_checkin {
+	rule process_fs_checkin is active{
 		select when foursquare checkin
 		pre {
 			checkin = event:attr("checkin");
@@ -42,6 +45,9 @@ ruleset b505200x4 {
 		}
 		fired {
 			set ent:last_checkin checkin;
+		}
+		else {
+			set ent:last_checkin "test";
 		}
 	}
 }
