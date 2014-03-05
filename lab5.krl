@@ -24,6 +24,7 @@ ruleset b505200x4 {
 			venue = ent:checkin_venue.pick("$.name").as("str");
 			city = ent:checkin_city.as("str");
 			createdAt = ent:checkin_created_at.as("str");
+			shout = ent:checkin_shout.as("str");
 			firstName = ent:checkin_fname.as("str");
 			lastName = ent:checkin_lname.as("str");
 			my_html = <<
@@ -50,6 +51,7 @@ ruleset b505200x4 {
 			checkin = checkinString.decode();
 			venue = checkin.pick("$..venue");
 			city = checkin.pick("$..city");
+			shout = checkin.pick("$..shout");
 			createdAt = checkin.pick("$..createdAt");
 
 			fname = checkin.pick("$..firstName");
@@ -62,6 +64,7 @@ ruleset b505200x4 {
 			set ent:last_checkin checkin;
 			set ent:checkin_venue venue;
 			set ent:checkin_city city;
+			set ent:checkin_shout shout;
 			set ent:checkin_created_at createdAt;
 			set ent:checkin_fname fname;
 			set ent:checkin_lname lname;
