@@ -30,11 +30,11 @@ ruleset b505200x4 {
 			my_html = <<
 				<div id="main">
 					<div id="checkin_info">
-						<p>Have a user login with foursquare to display data.</p>
-						<p>#{firstName} #{lastName}</p>
-						<p>#{city}</p>
-						<p>#{venue}</p>
-						<p>#{createdAt}</p>
+						<p>Name: #{firstName} #{lastName}</p>
+						<p>City: #{city}</p>
+						<p>Venue: #{venue}</p>
+						<p>Shout: #{shout}</p>
+						<p>At: #{createdAt}</p>
 					</div>
 				</div>
 			>>;
