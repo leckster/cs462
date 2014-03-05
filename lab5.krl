@@ -30,7 +30,6 @@ ruleset b505200x4 {
 				<div id="main">
 					<div id="checkin_info">
 						<p>Have a user login with foursquare to display data.</p>
-						<p>#{checkin}</p>
 						<p>#{firstName} #{lastName}</p>
 						<p>#{city}</p>
 						<p>#{venue}</p>
@@ -60,7 +59,7 @@ ruleset b505200x4 {
 			noop();
 		}
 		fired {
-			set ent:last_checkin checkinString;
+			set ent:last_checkin checkin;
 			set ent:checkin_venue venue;
 			set ent:checkin_city city;
 			set ent:checkin_created_at createdAt;
