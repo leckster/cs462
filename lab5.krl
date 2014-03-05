@@ -1,4 +1,4 @@
-ruleset rotten_tomatoes {
+ruleset b505200x4 {
 	meta {
 		//channel ID:13290550-9FC1-11E3-A8F0-B731B3AA5552
 		//event ID:0
