@@ -27,7 +27,7 @@ ruleset b505200x4 {
 				</div>
 			>>;
 		}
-		if(checkin) then {
+		{
 			SquareTag:inject_styling();
 			CloudRain:createLoadPanel("Latest Checkin Information", {}, my_html);
 		}
