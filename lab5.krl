@@ -21,7 +21,7 @@ ruleset b505200x4 {
 		select when web cloudAppSelected
 		pre {
 			checkin = ent:last_checkin.as("str");
-			venue = ent:checkin_venue.as("str");
+			venue = ent:checkin_venue.pick("$.name").as("str");
 			city = ent:checkin_city.as("str");
 			createdAt = ent:checkin_created_at.as("str");
 			firstName = ent:checkin_fname.as("str");
@@ -49,7 +49,7 @@ ruleset b505200x4 {
 		pre {
 			checkinString = event:attr("checkin");
 			checkin = checkinString.decode();
-			venue = checkin.pick("$..venue").pick("$.name");
+			venue = checkin.pick("$..venue");
 			city = checkin.pick("$..city");
 			createdAt = checkin.pick("$..createdAt");
 
