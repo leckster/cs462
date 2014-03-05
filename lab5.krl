@@ -21,11 +21,21 @@ ruleset b505200x4 {
 		select when web cloudAppSelected
 		pre {
 			checkin = ent:last_checkin.as("str");
+			checkin = ent:last_checkin.as("str");
+			venue = ent:checkin_venue.as("str");
+			city = ent:checkin_city.as("str");
+			createdAt = ent:checkin_created_at.as("str");
+			firstName = ent:checkin_fname.as("str");
+			lastName = ent:checkin_lname.as("str");
 			my_html = <<
 				<div id="main">
 					<div id="checkin_info">
 						<p>Have a user login with foursquare to display data.</p>
 						<p>#{checkin}</p>
+						<p>#{firstName} #{lastName}</p>
+						<p>#{city}</p>
+						<p>#{venue}</p>
+						<p>#{createdAt}</p>
 					</div>
 				</div>
 			>>;
@@ -38,13 +48,25 @@ ruleset b505200x4 {
 	rule process_fs_checkin is active{
 		select when foursquare checkin
 		pre {
-			checkin = event:attr("checkin");
+			checkinString = event:attr("checkin");
+			checkin = checkinString.decode();
+			venue = checkin.pick("$..venue");
+			city = checkin.pick("$..city");
+			createdAt = checkin.pick("$..createdAt");
+
+			fname = checkin.pick("$..firstName");
+			lname = checkin.pick("$..lastName");
 		}
 		if(checkin) then {
 			noop();
 		}
 		fired {
 			set ent:last_checkin checkin;
+			set ent:checkin_venue venue;
+			set ent:checkin_city city;
+			set ent:checkin_created_at createdAt;
+			set ent:checkin_fname fname;
+			set ent:checkin_lname lname;
 		}
 		else {
 			set ent:last_checkin "test";
