@@ -21,9 +21,15 @@ ruleset rotten_tomatoes {
 		select when web cloudAppSelected
 		pre {
 			checkin = ent:last_checkin;
+			my_html = <<
+				<div id="main">
+					<div id="checkin_info">Have a user login with foursquare to display data.</div>
+				</div>
+			>>;
 		}
 		if(checkin) then {
-			notify("Checkin exists", checkin);
+			SquareTag:inject_styling();
+			CloudRain:createLoadPanel("Latest Checkin Information", {}, my_html);
 		}
 	}
 	rule process_fs_checkin {
