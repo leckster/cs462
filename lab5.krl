@@ -20,7 +20,7 @@ ruleset b505200x4 {
 	rule display_checkin is active {
 		select when web cloudAppSelected
 		pre {
-			checkin = ent:last_checkin;
+			checkin = ent:last_checkin.as("str");
 			my_html = <<
 				<div id="main">
 					<div id="checkin_info">
