@@ -20,7 +20,6 @@ ruleset b505200x4 {
 	rule display_checkin is active {
 		select when web cloudAppSelected
 		pre {
-			checkin = ent:last_checkin.as("str");
 			venue = ent:checkin_venue.pick("$.name").as("str");
 			city = ent:checkin_city.as("str");
 			createdAt = ent:checkin_created_at.as("str");
@@ -53,6 +52,13 @@ ruleset b505200x4 {
 			city = checkin.pick("$..city");
 			shout = checkin.pick("$..shout");
 			createdAt = checkin.pick("$..createdAt");
+			
+			checkin_map = { {
+				"venue" : venue,
+				"city" : city,
+				"shout" : shout,
+				"createdAt" createdAt:
+			};
 
 			fname = checkin.pick("$..firstName");
 			lname = checkin.pick("$..lastName");
@@ -61,13 +67,17 @@ ruleset b505200x4 {
 			noop();
 		}
 		fired {
-			set ent:last_checkin checkin;
+			//Modify the process_fs_checkin rule from the Foursquare Checkin exercise to raise a pds:new_location_data event 
+			//the key attribute should be fs_checkin and 
+			//the value attribute should be a map with the venue, city, shout, and createdAt event attributes. 
 			set ent:checkin_venue venue;
 			set ent:checkin_city city;
 			set ent:checkin_shout shout;
 			set ent:checkin_created_at createdAt;
 			set ent:checkin_fname fname;
 			set ent:checkin_lname lname;
+			
+			raise pds event new_article_added for b505200x5 with key = "fs_checkin" and value = checkin_map;
 		}
 		else {
 			set ent:last_checkin "test";
