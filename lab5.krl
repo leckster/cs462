@@ -54,7 +54,7 @@ ruleset b505200x4 {
 			createdAt = checkin.pick("$..createdAt");
 			
 			checkin_map = {
-				"venue" : venue,
+				"venue" : venue.pick("$.name"),
 				"city" : city,
 				"shout" : shout,
 				"createdAt" : createdAt
