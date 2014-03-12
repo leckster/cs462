@@ -20,7 +20,7 @@ ruleset location_data {
 		pre {
 			key = event:param("key");
 			value = event:param("value");
-			new_map = {key : value};
+			new_map = {key.as("str") : value.as("str")};
 			
 			CheckinData = app:CheckinData || {};
         }
