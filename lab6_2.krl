@@ -14,19 +14,24 @@ ruleset examine_location {
 	rule show_fs_location {
 		select when web cloudAppSelected
 		pre {
-			checkin_data = location_data:get_location_data("fs_checkin");
-			venue = checkin_data.pick("$.venue").as("str");
-			city = checkin_data.pick("$.city").as("str");
-			shout = checkin_data.pick("$.shout").as("str");
-			createdAt = checkin_data.pick("$.createdAt").as("str");
+			checkin_data = location_data:get_location_data("test");
+//			venue = checkin_data.pick("$.venue").as("str");
+//			city = checkin_data.pick("$.city").as("str");
+//			shout = checkin_data.pick("$.shout").as("str");
+//			createdAt = checkin_data.pick("$.createdAt").as("str");
+//			my_html = <<
+//				<div id="main">
+//					<div id="checkin_info">
+//						<p>Venue: #{venue}</p>
+//						<p>City: #{city}</p>
+//						<p>Shout: #{shout}</p>
+//						<p>At: #{createdAt}</p>
+//					</div>
+//				</div>
+//			>>;
 			my_html = <<
 				<div id="main">
-					<div id="checkin_info">
-						<p>Venue: #{venue}</p>
-						<p>City: #{city}</p>
-						<p>Shout: #{shout}</p>
-						<p>At: #{createdAt}</p>
-					</div>
+					<p>#{checkin_data}</p>
 				</div>
 			>>;
 		}
