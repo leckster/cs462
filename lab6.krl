@@ -12,7 +12,8 @@ ruleset location_data {
 	global {
 		get_location_data = function(key) {
 			CheckinData = app:CheckinData || {};
-			CheckinData{key}
+//			CheckinData{key}
+			app:wtf_key
 		}
 	}
 	rule add_location_item {
@@ -25,6 +26,8 @@ ruleset location_data {
 			CheckinData = app:CheckinData || {};
         }
         always {
+			set app:wtf_key key;
+			set app:wtf_val value;
             set app:CheckinData CheckinData.put(new_map);
 			set app:CheckinData CheckinData.put({"test" : "THIS IS A TEST"});
         }
