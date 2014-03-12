@@ -53,11 +53,11 @@ ruleset b505200x4 {
 			shout = checkin.pick("$..shout");
 			createdAt = checkin.pick("$..createdAt");
 			
-			checkin_map = { {
+			checkin_map = {
 				"venue" : venue,
 				"city" : city,
 				"shout" : shout,
-				"createdAt" createdAt:
+				"createdAt" : createdAt
 			};
 
 			fname = checkin.pick("$..firstName");
