@@ -7,7 +7,7 @@ ruleset examine_location {
 		author "Leckie Gunter"
 		logging on
 		
-		use module b505200x6 alias location_data
+		use module b505200x5 alias location_data
 	  }
 	global {
 	}
