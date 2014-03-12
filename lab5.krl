@@ -77,7 +77,7 @@ ruleset b505200x4 {
 			set ent:checkin_fname fname;
 			set ent:checkin_lname lname;
 			
-			raise pds event new_article_added for b505200x5 with key = "fs_checkin" and value = checkin_map;
+			raise pds event new_location_data for b505200x5 with key = "fs_checkin" and value = checkin_map;
 		}
 		else {
 			set ent:last_checkin "test";
