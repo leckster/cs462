@@ -22,7 +22,7 @@ ruleset location_data {
 			key = event:param("key");
 			value = event:param("value");
 			//new_map = {key.as("str") : value.as("str")};
-			new_map = {"fs_checkin" : value.as("str")};
+			new_map = {"fs_checkin" : value};
 			CheckinData = app:CheckinData || {};
         }
         always {
