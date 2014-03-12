@@ -28,6 +28,7 @@ ruleset examine_location {
 						<p>City: #{city}</p>
 						<p>Shout: #{shout}</p>
 						<p>At: #{createdAt}</p>
+						<p>Raw Data: #{checkin_data}</p>
 					</div>
 				</div>
 			>>;
