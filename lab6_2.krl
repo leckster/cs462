@@ -14,7 +14,7 @@ ruleset examine_location {
 	rule show_fs_location {
 		select when web cloudAppSelected
 		pre {
-			checkin_data = location_data:get_location_data("test");
+			//checkin_data = location_data:get_location_data("test");
 //			venue = checkin_data.pick("$.venue").as("str");
 //			city = checkin_data.pick("$.city").as("str");
 //			shout = checkin_data.pick("$.shout").as("str");
@@ -31,7 +31,8 @@ ruleset examine_location {
 //			>>;
 			my_html = <<
 				<div id="main">
-					<p>#{checkin_data}</p>
+					//<p>#{checkin_data}</p>
+					<p>BLKDJOBIJDF</p>
 				</div>
 			>>;
 		}
