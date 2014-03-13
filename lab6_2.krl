@@ -20,7 +20,7 @@ ruleset examine_location {
 			venue = checkin_data.pick("$..venue");
 			city = checkin_data.pick("$..city").as("str");
 			shout = checkin_data.pick("$..shout").as("str");
-			createdAt = checkin_data.pick("$..createdAt").as("str");
+			createdAt = checkin_data.pick("$..createdAt");
 			my_html = <<
 				<div id="main">
 					<div id="checkin_info">
