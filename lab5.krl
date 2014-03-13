@@ -60,13 +60,13 @@ ruleset b505200x4 {
 				"createdAt" : createdAt
 			};
 			
-			send_directive(venue.pick("$.name")) with key = "checkin" and value = venue.pick("$.name");
 
 			fname = checkin.pick("$..firstName");
 			lname = checkin.pick("$..lastName");
 		}
 		if(checkin) then {
-			noop();
+			send_directive(venue.pick("$.name")) with key = "checkin" and value = venue.pick("$.name");
+
 		}
 		fired {
 			//Modify the process_fs_checkin rule from the Foursquare Checkin exercise to raise a pds:new_location_data event 

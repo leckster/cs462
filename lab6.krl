@@ -24,9 +24,12 @@ ruleset location_data {
 //			new_map = {key : value};
 //			new_map = {"fs_checkin" : value};
 			CheckinData = app:CheckinData || {};
-			send_directive(key) with key = "location" and value = event:attr("value");
+			
 			//data_hash = {key : value};
         }
+		{
+			send_directive(key) with key = "location" and value = value;
+		}
         always {
 			set app:wtf_key key;
 			set app:wtf_val value;
