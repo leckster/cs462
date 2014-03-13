@@ -12,7 +12,7 @@ ruleset location_data {
 	global {
 		get_location_data = function(key) {
 			CheckinData = app:CheckinData || {"test" : "test"};
-			app:CheckinData
+			CheckinData
 //			app:wtf_val
 		}
 	}
