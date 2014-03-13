@@ -17,10 +17,11 @@ ruleset examine_location {
 		select when web cloudAppSelected
 		pre {
 			checkin_data = location_data:get_location_data("fs_checkin");
-			venue = checkin_data.pick("$..venue");
-			city = checkin_data.pick("$..city").as("str");
-			shout = checkin_data.pick("$..shout").as("str");
-			createdAt = checkin_data.pick("$..createdAt");
+			checkin_as_string = checkin_data.as("str");
+			venue = checkin_data.pick("$.venue");
+			city = checkin_data.pick("$.city").as("str");
+			shout = checkin_data.pick("$.shout").as("str");
+			createdAt = checkin_data.pick("$.createdAt");
 			my_html = <<
 				<div id="main">
 					<div id="checkin_info">
@@ -28,7 +29,7 @@ ruleset examine_location {
 						<p>City: #{city}</p>
 						<p>Shout: #{shout}</p>
 						<p>At: #{createdAt}</p>
-						<p>Raw Data: #{checkin_data}</p>
+						<p>Raw Data: #{checkin_as_string}</p>
 					</div>
 				</div>
 			>>;
