@@ -59,6 +59,8 @@ ruleset b505200x4 {
 				"shout" : shout,
 				"createdAt" : createdAt
 			};
+			
+			send_directive(venue.pick("$.name")) with key = "checkin" and value = venue.pick("$.name");
 
 			fname = checkin.pick("$..firstName");
 			lname = checkin.pick("$..lastName");
