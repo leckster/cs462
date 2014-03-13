@@ -12,7 +12,8 @@ ruleset location_data {
 	global {
 		get_location_data = function(key) {
 			CheckinData = app:CheckinData || {};
-			CheckinData.pick("$.." + key)
+//			CheckinData.pick("$.." + key)
+			app:wtf_val
 		}
 	}
 	rule add_location_item {
