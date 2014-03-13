@@ -17,7 +17,7 @@ ruleset examine_location {
 		select when web cloudAppSelected
 		pre {
 			checkin_data = location_data:get_location_data("fs_checkin");
-			venue = checkin_data.pick("$..venue").as("str");
+			venue = checkin_data.pick("$..venue");
 			city = checkin_data.pick("$..city").as("str");
 			shout = checkin_data.pick("$..shout").as("str");
 			createdAt = checkin_data.pick("$..createdAt").as("str");
