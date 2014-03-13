@@ -27,7 +27,7 @@ ruleset location_data {
         always {
 			set app:wtf_key key;
 			set app:wtf_val value;
-            set app:CheckinData CheckinData.put(key, value);
+            set app:CheckinData CheckinData.put({key : value});
 //			set app:CheckinData CheckinData.put({"test" : "THIS IS A TEST"});
         }
 	}
