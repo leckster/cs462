@@ -9,6 +9,8 @@ ruleset location_near {
 		author "Leckie Gunter"
 		logging on
 		
+		use module a169x701 alias CloudRain
+		use module a41x186  alias SquareTag
 		use module b505200x5 alias location_data
 	  }
 	rule nearby is active{
