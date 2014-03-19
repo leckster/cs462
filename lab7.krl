@@ -79,7 +79,7 @@ ruleset location_near {
 		}
 		{
 			SquareTag:inject_styling();
-			CloudRain:createLoadPanel("Latest Checkin Information Via Data Module", {}, my_html);
+			CloudRain:createLoadPanel("Lat Long from most recent push", {}, my_html);
 		}
 	}
 }
