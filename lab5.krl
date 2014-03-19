@@ -5,6 +5,7 @@ ruleset b505200x4 {
 		//domain: foursquare
 		//type: checkin
 		//?_rid=
+		//https://cs.kobj.net/sky/event/13290550-9FC1-11E3-A8F0-B731B3AA5552/0/foursquare/checkin?_rids=b505200x4
 		name "Foursquare Checkin"
 		description <<
 		  Update based on foursquare checkins
@@ -52,12 +53,16 @@ ruleset b505200x4 {
 			city = checkin.pick("$..city");
 			shout = checkin.pick("$..shout");
 			createdAt = checkin.pick("$..createdAt");
+			lat = checkin.pick("$..lat");
+			lng = checkin.pick("$..lng");
 			
 			checkin_map = {
 				"venue" : venue.pick("$.name"),
 				"city" : city,
 				"shout" : shout,
-				"createdAt" : createdAt
+				"createdAt" : createdAt,
+				"lat" : lat,
+				"lng" : lng
 			};
 			
 
