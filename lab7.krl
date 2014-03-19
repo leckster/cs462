@@ -9,26 +9,30 @@ ruleset location_near {
 		author "Leckie Gunter"
 		logging on
 		
+		use module b505200x5 alias location_data
 	  }
 	rule nearby is active{
 		select when location new_current
 		pre {
 			locationString = event:attr("checkin");
 			location = locationString.decode();
+			new_lat = location.pick("$..lat");
+			new_lng = location.pick("$..lng");
 			
-			lat = location.pick("$..lat");
-			lng = location.pick("$..lng");
+			checkin_data = location_data:get_location_data("fs_checkin");
+			stored_lat = checkin_data.pick("$.lat");
+			stored_lng = checkin_data.pick("$.lng");
 			
 			r90   = math:pi()/2;      
 			rEk   = 6378;         // radius of the Earth in km
 
 			// point a
-			lata  = 40.4267290;
-			lnga  = -111.9025358;
+			lata  = new_lat;
+			lnga  = new_lng;
 
 			// point b
-			latb  = 43.8310154;
-			lngb  = -111.7747790;
+			latb  = stored_lat;
+			lngb  = stored_lng;
 
 			// convert co-ordinates to radians
 			rlata = math:deg2rad(lata);
@@ -36,24 +40,20 @@ ruleset location_near {
 			rlatb = math:deg2rad(latb);
 			rlngb = math:deg2rad(lngb);
 
-			// distance between two co-ordinates in radians
-			dR = math:great_circle_distance(rlnga,r90 - rlata, rlngb,r90 - rlatb);
-
 			// distance between two co-ordinates in kilometers
 			dE = math:great_circle_distance(rlnga,r90 - rlata, rlngb,r90 - rlatb, rEk);
 			
-			
+			//8.04 km == 5 miles
 		}
-		if(checkin) then {
-			send_directive(venue.pick("$.name")) with key = "checkin" and value = venue.pick("$.name");
-
+		if(dE < 8.04) then {
+//			send_directive(venue.pick("$.name")) with key = "checkin" and value = venue.pick("$.name");
+			noop();
 		}
 		fired {
-			
-			raise pds event new_location_data for b505200x5 with key = "fs_checkin" and value = checkin_map;
+			raise explicit event location_nearby for b505200x8 with distance = dE;
 		}
 		else {
-			set ent:last_checkin "test";
+			raise explicit event location_far for b505200x8 with distance = dE;
 		}
 	}
 }
