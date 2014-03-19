@@ -30,7 +30,7 @@ ruleset location_near {
 		twilio:send_sms("+13852041887", "+13852357234", distance);
 		}
 		fired {
-			set ent::dist distance;
+			set ent:dist distance;
 		}
 	}
 	rule show_text {
