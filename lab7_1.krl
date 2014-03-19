@@ -31,16 +31,19 @@ ruleset location_near {
 		}
 		fired {
 			set ent:dist distance;
+			set ent:fired "fired";
 		}
 	}
 	rule show_text {
 		select when web cloudAppSelected
 		pre {
 			dist = ent:dist;
+			fired = ent:fired;
 			
 			my_html = <<
 				<div id="main">
 					<p>Dist: #{dist}</p>
+					<p>Test: #{fired}</p>
 				</div>
 			>>;
 		}
