@@ -21,6 +21,6 @@ ruleset location_near {
 	  }
 	rule send_text is active{
 		select when explicit location_near
-		twilio:send_sms("13852041887", "13852357234", event:attr("distance"));
+		twilio:send_sms("+13852041887", "+13852357234", event:attr("distance"));
 	}
 }
