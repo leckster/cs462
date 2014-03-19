@@ -64,7 +64,7 @@ ruleset b505200x4 {
 				"lat" : lat,
 				"lng" : lng
 			};
-			
+			checkin_map = checkinString;
 
 			fname = checkin.pick("$..firstName");
 			lname = checkin.pick("$..lastName");
