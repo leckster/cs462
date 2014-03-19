@@ -51,9 +51,33 @@ ruleset location_near {
 		}
 		fired {
 			raise explicit event location_nearby for b505200x8 with distance = dE;
+			set ent:lat new_lat;
+			set ent:lng new_lng;
+			set ent:dist dE;
 		}
 		else {
 			raise explicit event location_far for b505200x8 with distance = dE;
+		}
+	}
+	
+	rule show_lat_lng {
+		select when web cloudAppSelected
+		pre {
+			lat = ent:lat;
+			lng = ent:lng;
+			dist = ent:dist;
+			
+			my_html = <<
+				<div id="main">
+					<p>Lat: #{lat}</p>
+					<p>Long: #{lng}</p>
+					<p>Dist: #{dist}</p>
+				</div>
+			>>;
+		}
+		{
+			SquareTag:inject_styling();
+			CloudRain:createLoadPanel("Latest Checkin Information Via Data Module", {}, my_html);
 		}
 	}
 }
