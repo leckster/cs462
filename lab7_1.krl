@@ -27,7 +27,7 @@ ruleset location_near {
 			distance = event:attr("distance");
 		}
 		{
-		twilio:send_sms("+13852041887", "+13852357234", distance);
+		twilio:send_sms("+13852041887", "+13852357234", distance + " km.");
 		}
 		fired {
 			set ent:dist distance;
