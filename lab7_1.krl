@@ -22,7 +22,7 @@ ruleset location_near {
 		
 	  }
 	rule send_text is active{
-		select when explicit location_near
+		select when explicit location_nearby
 		pre {
 			distance = event:attr("distance");
 		}
