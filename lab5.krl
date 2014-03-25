@@ -19,11 +19,11 @@ ruleset b505200x4 {
 		subscription_maps = [
 			{
 				//"name": "Leckster+1",
-				cid: "58E287B0-B42F-11E3-954D-DEC687B7806A"
+				"cid": "58E287B0-B42F-11E3-954D-DEC687B7806A"
 			},
 			{
 				//"name": "Leckster+2",
-				cid: "5C88DE46-B42F-11E3-B404-D9A9AD931101"
+				"cid": "5C88DE46-B42F-11E3-B404-D9A9AD931101"
 			}
 		];
 	}
@@ -36,6 +36,8 @@ ruleset b505200x4 {
 			shout = ent:checkin_shout.as("str");
 			firstName = ent:checkin_fname.as("str");
 			lastName = ent:checkin_lname.as("str");
+			
+			cid = ent:sub_map;
 			my_html = <<
 				<div id="main">
 					<div id="checkin_info">
@@ -44,6 +46,7 @@ ruleset b505200x4 {
 						<p>Venue: #{venue}</p>
 						<p>Shout: #{shout}</p>
 						<p>At: #{createdAt}</p>
+						<p>CID: #{cid}</p>
 					</div>
 				</div>
 			>>;
@@ -74,10 +77,13 @@ ruleset b505200x4 {
 						"lat" : lat,
 						"lng" : lng
 					};
-					cid = sub_map.pick("$.cid");
+					cid = sub_map.pick("$..cid");
 				}
 				{
 					event:send(sub_map, "location", "notification") with attrs = checkin_map;
+				}
+				always {
+					set ent:sub_map cid;
 				}
 	}
 	rule process_fs_checkin is active{
