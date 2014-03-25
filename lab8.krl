@@ -13,20 +13,24 @@ ruleset location_near {
 	rule location_catch is active{
 		select when location notification
 		pre {
-			checkin_data = {
-				"venue" : event:attr("venue"),
-				"city" : event:attr("city"),
-				"shout" : event:attr("shout"),
-				"createdAt" : event:attr("createdAt"),
-				"lat" : event:attr("lat"),
-				"lng" : event:attr("lng")
-			};
+			venue = event:attr("venue");
+			city = event:attr("city");
+			shout = event:attr("shout");
+			createdAt = event:attr("createdAt");
+			lat = event:attr("lat");
+			lng = event:attr("lng");
 		}
 		{
 			noop();
 		}
 		always {
-			set ent:checkin checkin_data;
+			set ent:venue venue;
+			set ent:city city;
+			set ent:shout shout;
+			set ent:createdAt createdAt;
+			set ent:lat lat;
+			set ent:lng lng;
+			
 			set ent:test "this fired";
 		}
 	}
@@ -34,13 +38,11 @@ ruleset location_near {
 	rule location_show {
 		select when web cloudAppSelected
 		pre {
-			checkin_data = ent:checkin;
-			checkin_as_string = checkin_data.as("str");
 			
-			venue = checkin_data.pick("$.venue");
-			city = checkin_data.pick("$.city").as("str");
-			shout = checkin_data.pick("$.shout").as("str");
-			createdAt = checkin_data.pick("$.createdAt");
+			venue = ent:venue;
+			city = ent:city;
+			shout = ent:shout;
+			createdAt = ent:createdAt;
 			
 			test = ent:test;
 			
@@ -51,7 +53,6 @@ ruleset location_near {
 						<p>City: #{city}</p>
 						<p>Shout: #{shout}</p>
 						<p>At: #{createdAt}</p>
-						<p>Raw Data: #{checkin_as_string}</p>
 						<p>#{test}</p>
 					</div>
 				</div>

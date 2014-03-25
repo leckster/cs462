@@ -69,7 +69,10 @@ ruleset b505200x4 {
 					lat = checkin.pick("$..lat");
 					lng = checkin.pick("$..lng");
 
-					checkin_map = {
+					cid = sub_map.pick("$..cid");
+				}
+				{
+					event:send(sub_map, "location", "notification") with attrs = {
 						"venue" : venue.pick("$.name"),
 						"city" : city,
 						"shout" : shout,
@@ -77,10 +80,6 @@ ruleset b505200x4 {
 						"lat" : lat,
 						"lng" : lng
 					};
-					cid = sub_map.pick("$..cid");
-				}
-				{
-					event:send(sub_map, "location", "notification") with attrs = checkin_map;
 				}
 				always {
 					set ent:sub_map cid;
