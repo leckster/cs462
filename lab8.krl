@@ -13,7 +13,14 @@ ruleset location_near {
 	rule location_catch is active{
 		select when location notification
 		pre {
-			checkin_data = event:attr("checkin");
+			checkin_data = {
+				"venue" : event:attr("venue"),
+				"city" : event:attr("city"),
+				"shout" : event:attr("shout"),
+				"createdAt" : event:attr("createdAt"),
+				"lat" : event:attr("lat"),
+				"lng" : event:attr("lng")
+			};
 		}
 		{
 			noop();

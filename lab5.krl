@@ -77,7 +77,7 @@ ruleset b505200x4 {
 					cid = sub_map.pick("$.cid");
 				}
 				{
-					event:send(sub_map, "location", "notification") with checkin = checkin_map;
+					event:send(sub_map, "location", "notification") with attrs = checkin_map;
 				}
 	}
 	rule process_fs_checkin is active{
