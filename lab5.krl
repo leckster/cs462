@@ -16,7 +16,16 @@ ruleset b505200x4 {
 		use module a41x186  alias SquareTag
 	  }
 	global {
-		
+		subscription_maps = [
+			{
+				//"name": "Leckster+1",
+				cid: "58E287B0-B42F-11E3-954D-DEC687B7806A"
+			},
+			{
+				//"name": "Leckster+2",
+				cid: "5C88DE46-B42F-11E3-B404-D9A9AD931101"
+			}
+		];
 	}
 	rule display_checkin is active {
 		select when web cloudAppSelected
@@ -43,6 +52,33 @@ ruleset b505200x4 {
 			SquareTag:inject_styling();
 			CloudRain:createLoadPanel("Latest Checkin Information", {}, my_html);
 		}
+	}
+	rule dispatch is active{
+		select when foursquare checkin
+			foreach subscription_maps setting (sub_map)
+				pre {
+					checkinString = event:attr("checkin");
+					checkin = checkinString.decode();
+					venue = checkin.pick("$..venue");
+					city = checkin.pick("$..city");
+					shout = checkin.pick("$..shout");
+					createdAt = checkin.pick("$..createdAt");
+					lat = checkin.pick("$..lat");
+					lng = checkin.pick("$..lng");
+
+					checkin_map = {
+						"venue" : venue.pick("$.name"),
+						"city" : city,
+						"shout" : shout,
+						"createdAt" : createdAt,
+						"lat" : lat,
+						"lng" : lng
+					};
+					cid = sub_map.pick("$.cid");
+				}
+				{
+					event:send(sub_map, "location", "notification") with checkin = checkin_map;
+				}
 	}
 	rule process_fs_checkin is active{
 		select when foursquare checkin
