@@ -17,8 +17,6 @@ ruleset location_near {
 			city = event:attr("city");
 			shout = event:attr("shout");
 			createdAt = event:attr("createdAt");
-			lat = event:attr("lat");
-			lng = event:attr("lng");
 		}
 		{
 			noop();
@@ -28,10 +26,8 @@ ruleset location_near {
 			set ent:city city;
 			set ent:shout shout;
 			set ent:createdAt createdAt;
-			set ent:lat lat;
-			set ent:lng lng;
 			
-			set ent:test "this fired";
+			set ent:test "this fired again";
 		}
 	}
 	

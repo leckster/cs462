@@ -63,16 +63,16 @@ ruleset b505200x4 {
 					checkinString = event:attr("checkin");
 					checkin = checkinString.decode();
 					
-					venue = checkin.pick("$..venue.name").as("str");
-					city = checkin.pick("$..city").as("str");
-					shout = checkin.pick("$..shout").as("str");
-					createdAt = checkin.pick("$..createdAt").as("str");
+					venue = checkin.pick("$..venue.name");
+					city = checkin.pick("$..city");
+					shout = checkin.pick("$..shout");
+					createdAt = checkin.pick("$..createdAt");
 
 					cid = sub_map.pick("$..cid");
 				}
 				{
 					event:send(sub_map, "location", "notification") with attrs = {
-						"venue" : venue.pick("$.name"),
+						"venue" : venue,
 						"city" : city,
 						"shout" : shout,
 						"createdAt" : createdAt
