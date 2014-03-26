@@ -62,12 +62,11 @@ ruleset b505200x4 {
 				pre {
 					checkinString = event:attr("checkin");
 					checkin = checkinString.decode();
-					venue = checkin.pick("$..venue");
-					city = checkin.pick("$..city");
-					shout = checkin.pick("$..shout");
-					createdAt = checkin.pick("$..createdAt");
-					lat = checkin.pick("$..lat");
-					lng = checkin.pick("$..lng");
+					
+					venue = checkin.pick("$..venue.name").as("str");
+					city = checkin.pick("$..city").as("str");
+					shout = checkin.pick("$..shout").as("str");
+					createdAt = checkin.pick("$..createdAt").as("str");
 
 					cid = sub_map.pick("$..cid");
 				}
@@ -76,9 +75,7 @@ ruleset b505200x4 {
 						"venue" : venue.pick("$.name"),
 						"city" : city,
 						"shout" : shout,
-						"createdAt" : createdAt,
-						"lat" : lat,
-						"lng" : lng
+						"createdAt" : createdAt
 					};
 				}
 				always {
