@@ -56,7 +56,7 @@ ruleset location_near {
 		}
 		{
 			SquareTag:inject_styling();
-			CloudRain:createLoadPanel("Latest Checkin Information via Channel", {}, my_html);
+			CloudRain:createLoadPanel("Latest Checkin Information via Channel 2", {}, my_html);
 		}
 	}
 }
